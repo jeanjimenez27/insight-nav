@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { Loader2, Upload, Trash2 } from "lucide-react";
+import { KeyRound, Loader2, Upload, Trash2 } from "lucide-react";
 import { publicLogoUrl } from "@/hooks/useAgencySettings";
 
 export default function SettingsPage() {
@@ -23,6 +23,10 @@ export default function SettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [updatingPassword, setUpdatingPassword] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -63,6 +67,27 @@ export default function SettingsPage() {
       return;
     }
     toast({ title: "Settings saved" });
+  }
+
+  async function updatePassword() {
+    if (newPassword.length < 6) {
+      toast({ title: "Too short", description: "Password must be at least 6 characters.", variant: "destructive" });
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      toast({ title: "Passwords don't match", variant: "destructive" });
+      return;
+    }
+    setUpdatingPassword(true);
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    setUpdatingPassword(false);
+    if (error) {
+      toast({ title: "Update failed", description: error.message, variant: "destructive" });
+      return;
+    }
+    setNewPassword("");
+    setConfirmPassword("");
+    toast({ title: "Password updated" });
   }
 
   async function uploadLogo(file: File) {
@@ -216,6 +241,47 @@ export default function SettingsPage() {
           <Button onClick={save} disabled={saving}>
             {saving && <Loader2 className="h-4 w-4 animate-spin" />}
             Save settings
+          </Button>
+        </div>
+      </Card>
+
+      <Card className="p-5 space-y-5">
+        <div className="flex items-center gap-2">
+          <KeyRound className="h-4 w-4 text-muted-foreground" />
+          <div>
+            <h2 className="text-sm font-medium">Change password</h2>
+            <p className="text-xs text-muted-foreground">Sets a new password immediately — no email link needed.</p>
+          </div>
+        </div>
+        <div className="grid gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="new-password">New password</Label>
+            <Input
+              id="new-password"
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="••••••••"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="confirm-password">Confirm new password</Label>
+            <Input
+              id="confirm-password"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="••••••••"
+            />
+          </div>
+        </div>
+        <div className="pt-2 flex justify-end">
+          <Button
+            onClick={updatePassword}
+            disabled={updatingPassword || !newPassword || !confirmPassword}
+          >
+            {updatingPassword && <Loader2 className="h-4 w-4 animate-spin" />}
+            Update password
           </Button>
         </div>
       </Card>
