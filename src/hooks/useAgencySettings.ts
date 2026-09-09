@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { supabase } from "@/lib/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { publicLogoUrl } from "@/lib/publicLogoUrl";
 
 export type AgencySettings = {
   owner: string;
@@ -12,11 +13,7 @@ export type AgencySettings = {
   logo_path: string | null;
 };
 
-export function publicLogoUrl(bucket: "agency-logos" | "client-logos", path: string | null | undefined): string | null {
-  if (!path) return null;
-  const { data } = supabase.storage.from(bucket).getPublicUrl(path);
-  return data.publicUrl;
-}
+export { publicLogoUrl };
 
 export function useAgencySettings() {
   const { user } = useAuth();
