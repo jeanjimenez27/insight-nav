@@ -671,7 +671,7 @@ export default function AnalysisPage() {
             <h2 className="text-xs font-medium text-muted-foreground mb-2">Trends</h2>
             <div className="space-y-1.5">
               {row.trends.map((t, i) => (
-                <Card key={i} className="p-2.5 flex items-start gap-2">
+                <Card key={i} className="p-2.5 flex flex-row items-start gap-2">
                   <TrendIcon dir={t.direction} />
                   <div className="flex-1">
                     <div className="font-medium text-sm flex items-center gap-2">
@@ -693,7 +693,7 @@ export default function AnalysisPage() {
             <h2 className="text-xs font-medium text-muted-foreground mb-2">Anomalies</h2>
             <div className="space-y-1.5">
               {row.anomalies.map((a, i) => (
-                <Card key={i} className="p-2.5 flex items-start gap-2">
+                <Card key={i} className="p-2.5 flex flex-row items-start gap-2">
                   <TriangleAlert className={`h-4 w-4 mt-0.5 ${
                     a.severity === "high" ? "text-destructive" : a.severity === "medium" ? "text-[hsl(var(--warning))]" : "text-muted-foreground"
                   }`} />
@@ -715,7 +715,7 @@ export default function AnalysisPage() {
             <h2 className="text-xs font-medium text-muted-foreground mb-2">Recommendations</h2>
             <div className="space-y-1.5">
               {row.recommendations.map((r, i) => (
-                <Card key={i} className="p-2.5 flex items-start gap-2">
+                <Card key={i} className="p-2.5 flex flex-row items-start gap-2">
                   <div className="h-6 w-6 rounded-md bg-primary/10 text-primary grid place-items-center shrink-0">
                     <Sparkles className="h-3.5 w-3.5" />
                   </div>

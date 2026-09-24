@@ -693,7 +693,7 @@ export default function ClientPage() {
         ) : (
           <div className="space-y-2">
             {history.map((a) => (
-              <Card key={a.id} className="p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors group">
+              <Card key={a.id} className="p-4 flex flex-row items-center gap-3 hover:bg-muted/50 transition-colors group">
                 <Link
                   href={`/clients/${client.id}/analyses/${a.id}`}
                   className="flex items-center gap-3 flex-1 min-w-0"
