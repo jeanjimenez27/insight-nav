@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { BarChart3, LogOut, Plus, Users, Pencil, Check, X, Settings } from "lucide-react";
+import { BarChart3, Home, LogOut, Plus, Users, Pencil, Check, X, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ClientFormDialog from "@/components/ClientFormDialog";
 
@@ -86,7 +86,19 @@ export default function Sidebar() {
         </div>
       </div>
 
-      <div className="px-3 py-3">
+      <div className="px-3 pt-3 space-y-1">
+        <Link
+          href="/"
+          className={cn(
+            "flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors",
+            pathname === "/"
+              ? "bg-sidebar-accent text-sidebar-accent-foreground"
+              : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+          )}
+        >
+          <Home className="h-4 w-4" />
+          Home
+        </Link>
         <Button
           variant="ghost"
           className="w-full justify-start gap-2 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
