@@ -163,7 +163,7 @@ export default async function Home() {
                 href={`/clients/${item.clientId}/analyses/${item.analysisId}`}
                 className="block"
               >
-                <Card className="p-3 flex items-start gap-3 hover:bg-muted/50 transition-colors">
+                <Card className="p-3 flex flex-row items-start gap-3 hover:bg-muted/50 transition-colors">
                   <div className="shrink-0 mt-0.5">
                     {item.kind === "anomaly" ? (
                       <AlertTriangle className="h-4 w-4 text-destructive" />
@@ -259,7 +259,7 @@ export default async function Home() {
               const client = clientsById.get(a.client_id);
               return (
                 <Link key={a.id} href={`/clients/${a.client_id}/analyses/${a.id}`} className="block">
-                  <Card className="p-3 flex items-center gap-3 hover:bg-muted/50 transition-colors">
+                  <Card className="p-3 flex flex-row items-center gap-3 hover:bg-muted/50 transition-colors">
                     <div className="h-9 w-9 rounded-md bg-muted grid place-items-center shrink-0">
                       <FileSpreadsheet className="h-4 w-4 text-muted-foreground" />
                     </div>
